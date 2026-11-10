@@ -2,24 +2,18 @@
 
 更新：2026-11-10
 
-## 現況
-- 網站（純前端單檔 `index.html`）已推上 `589411/lab-analysis-sets`（公開，`main`）。
-- GitHub Pages 已啟用，自訂網域 `sets.launchdock.app` 已設，狀態 building，**HTTPS 尚未開**。
-- 本機 node 測試：prep／regress／cluster／forecast 全過；classify 結束碼 1（K 近鄰對 sklearn 4 項不一致，已知狀態，不要為了過關去改）。
-- 交接文件的 zip 內有 `.nojekyll`、`.gitignore`，手動複製時漏掉；`.nojekyll` 已補，`.gitignore` 是重寫的簡版（`__pycache__/ *.pyc .DS_Store node_modules/`），與原版未比對。
-
-## 卡在哪
-**DNS 還沒加**：`sets.launchdock.app` 沒有解析紀錄。
-- wrangler OAuth 只有 `zone:read`，寫不了 DNS。
-- 能寫 DNS 的是 Keychain 的 `cloudflare-api-token`，但 Claude Code auto mode 擋讀 Keychain（「憑證探索」），要 Joseph 用 `!` 自己跑，或自己在 dashboard 加。
-- Claude in Chrome 開 dash.cloudflare.com 是未登入狀態，需 Joseph 先登入（帳號 589411）。
+## 現況（已上線）
+- https://sets.launchdock.app 回 200，HTTPS 強制已開（憑證 approved，到 2027-02-08），http 會 301 轉址。
+- Pages：`main` 根目錄，build 為 built。DNS：Cloudflare `sets` CNAME → `589411.github.io`（DNS only）。
+- 驗收：照交接腳本實跑，12 張卡、4 張「先從這個開始」；示範明細＋channel 去掉 online → `原始 8,000 ＝ 不在這次範圍 507 ＋ 用來計算 5,675 ＋ 金額 ≤ 0 114 ＋ 散客 1,704`，整理成 1,056 位顧客，無錯誤框。
+- lab 卡片已上架（`launchdock-lab` main，`lab.launchdock.app` 與 `/en/` 皆有，封面與兩個按鈕連結正常，分支 `lab/analysis-sets` 已刪）。
+- 本機 node 測試：prep／regress／cluster／forecast 全過；classify 結束碼 1（K 近鄰對 sklearn 4 項不一致，已知，別為了過關去改）。
+- zip 內的 `.gitignore` 沒複製到，現行是重寫的簡版（`__pycache__/ *.pyc .DS_Store node_modules/`）。
 
 ## 下一個具體動作
-1. Joseph 加 DNS：`launchdock.app` zone → `sets` CNAME → `589411.github.io`，**DNS only（灰雲）**。
-2. 憑證簽發：`gh api -X PUT repos/589411/lab-analysis-sets/pages -F https_enforced=true`；若 404「certificate does not exist yet」且建置已 built，就 cname 清空再設回 `sets.launchdock.app`（可能要 Joseph 用 `!` 執行）。
-3. 驗收：`curl -sI https://sets.launchdock.app` 回 200；瀏覽器照交接文件 2-C 腳本走，對帳數字 507／5,675／114／1,704。
-4. **網站 200 之後**才合併 `launchdock-lab` 的 `origin/lab/analysis-sets`（順序不能反），跑 validate／build、push main、刪分支、更新 lab 的 STATUS.md。
-5. 補測：Excel 上傳、真實剪貼簿、Safari／Edge／手機。
+1. **補測**（雲端做不到）：Excel 上傳（SheetJS 從 cdnjs 載入，沒真的跑過）、真實剪貼簿三個按鈕、Safari／Edge／手機、資料準備面板深色模式。壞的列出重現步驟回報 Joseph，不用急著修。
+2. 待 Joseph 決定：卡片是否 `pinned`／`qr`；卡片文字是否改成問題導向（目前沿用 v1 文案，內容仍正確）；repo 名與子網域是否沿用（已照文件上線）。
 
-## 待 Joseph 決定
-repo 名與子網域是否沿用；卡片是否 `pinned`／`qr`；卡片文字是否改成問題導向。
+## 注意
+- 改內容要改 `src/` 再跑 `python3 build.py`，不要手改 `index.html`。
+- GitHub 憑證卡住時：cname 清空再設回；連續觸發建置會互相取消、狀態暫時顯示 errored，別疊加操作，等一個 run 跑完。
