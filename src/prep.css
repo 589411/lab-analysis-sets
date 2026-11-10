@@ -1,0 +1,39 @@
+/* 資料準備面板（src/prep_ui.js）。只用 style.css 的變數，沿用 .seg .field .hint .tip .btn .recon .tbl .checks .err。 */
+.prep-h{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.02em;margin:0 0 6px}
+.prep-warn{color:var(--warn);font-size:12px;margin-top:2px}
+.prep-row{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-top:10px}
+.prep-prev{flex:1 1 180px;min-width:0;font-size:13px}
+.prep-prev summary{margin-bottom:4px}
+.prep-apply{margin-top:6px}
+.prep-res .recon{margin-top:10px}
+.prep-res .hint{margin-top:6px}
+.prep-res .prep-row{margin-top:10px}
+
+/* 說明區塊（prep-note）：左邊線用 --warn，醒目但不撐破版面；手機 390px 內換行 */
+.prep-note{border-left:3px solid var(--warn);padding:6px 10px;margin-top:10px;font-size:13px;line-height:1.6;min-width:0;max-width:100%;box-sizing:border-box;overflow-wrap:anywhere}
+.prep-note p{margin:0 0 4px}
+.prep-note p:last-child{margin-bottom:0}
+.prep-note .btn{margin-top:4px;max-width:100%;white-space:normal;text-align:left}
+.prep-readynote{margin-top:4px;min-width:0;max-width:100%}
+
+/* 界定範圍（選填）：小卡、快速加入的小按鈕、日期與數字輸入。手機寬 390px 不可橫向溢出。 */
+.prep,.prep-scope,.prep-txn,.prep-res{min-width:0;max-width:100%}
+.prep-scope{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.prep-scope-h{font-size:13px;font-weight:700;margin:0 0 4px}
+.prep-scope .field{min-width:0}
+.prep-chips{display:flex;flex-wrap:wrap;gap:6px}
+.prep-chips .btn{max-width:100%;overflow-wrap:anywhere;text-align:left;white-space:normal}
+.prep-scope select{width:100%;max-width:100%;box-sizing:border-box;font-size:14px;padding:5px 8px}
+.prep-scope .prep-row{align-items:center}
+.prep-scope .prep-row select{flex:1 1 160px;min-width:0}
+.prep-scope-card{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;min-width:0}
+.prep-scope-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-width:0}
+.prep-scope-top b{font-size:13.5px;overflow-wrap:anywhere;min-width:0}
+.prep-scope-top .btn{flex:0 0 auto}
+.prep-scope-card .checks{margin-top:6px}
+.prep-scope-card .checks label{max-width:100%;overflow-wrap:anywhere}
+.prep-scope-card input[type=date],.prep-scope-card input[type=number]{width:100%;max-width:100%;box-sizing:border-box;font-size:14px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.prep-scope-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:6px}
+.prep-scope-pair .field{margin-top:0;min-width:0}
+.prep-scope-card .tip,.prep-scope-card .hint{margin-top:6px}
+.prep-scope-card .hint{font-size:12.5px}
